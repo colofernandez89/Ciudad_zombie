@@ -8,7 +8,7 @@ texto COMPLETAR que deben completarse segun lo indique la consigna.
 El objeto Juego contiene mucho codigo. Tomate tu tiempo para leerlo tranquilo
 y entender que es lo que hace en cada una de sus partes. */
 
-var Juego = {
+const Juego = {
   // Aca se configura el tamanio del canvas del juego
   anchoCanvas: 961,
   altoCanvas: 577,
@@ -108,20 +108,23 @@ Juego.update = function() {
 // Captura las teclas y si coincide con alguna de las flechas tiene que
 // hacer que el jugador principal se mueva
 Juego.capturarMovimiento = function(tecla) {
-  var movX = 0;
-  var movY = 0;
-  var velocidad = this.jugador.velocidad;
+  let movX = 0;
+  let movY = 0;
+  let velocidad = this.jugador.velocidad;
 
   // El movimiento esta determinado por la velocidad del jugador
   if (tecla == 'izq') {
     movX = -velocidad;
   }
+
   if (tecla == 'arriba') {
     movY = -velocidad;
   }
+
   if (tecla == 'der') {
     movX = velocidad;
   }
+
   if (tecla == 'abajo') {
     movY = velocidad;
   }
@@ -130,7 +133,7 @@ Juego.capturarMovimiento = function(tecla) {
   if (this.chequearColisiones(movX + this.jugador.x, movY + this.jugador.y)) {
     /* Aca tiene que estar la logica para mover al jugador invocando alguno
     de sus metodos  */
-
+      this.jugador.mover(movX, movY, tecla);
     /* COMPLETAR */
   }
 };
@@ -146,6 +149,7 @@ Juego.dibujar = function() {
   utilizando al dibujante y los metodos que nos brinda.
   "Dibujante dibuja al jugador" */
 
+    Dibujante.dibujarEntidad(Jugador);
   /* Completar */
 
   // Se recorren los obstaculos de la carretera pintandolos
@@ -159,10 +163,10 @@ Juego.dibujar = function() {
   });
 
   // El dibujante dibuja las vidas del jugador
-  var tamanio = this.anchoCanvas / this.vidasInicial;
+  let tamanio = this.anchoCanvas / this.vidasInicial;
   Dibujante.dibujarRectangulo('white', 0, 0, this.anchoCanvas, 8);
-  for (var i = 0; i < this.jugador.vidas; i++) {
-    var x = tamanio * i
+  for (let i = 0; i < this.jugador.vidas; i++) {
+    let x = tamanio * i
     Dibujante.dibujarRectangulo('red', x, 0, tamanio, 8);
   }
 };
@@ -197,7 +201,7 @@ Juego.calcularAtaques = function() {
 /* Aca se chequea si el jugador se peude mover a la posicion destino.
  Es decir, que no haya obstaculos que se interpongan. De ser asi, no podra moverse */
 Juego.chequearColisiones = function(x, y) {
-  var puedeMoverse = true
+  let puedeMoverse = true
   this.obstaculos().forEach(function(obstaculo) {
     if (this.intersecan(obstaculo, this.jugador, x, y)) {
 
@@ -212,14 +216,14 @@ Juego.chequearColisiones = function(x, y) {
 /* Este metodo chequea si los elementos 1 y 2 si cruzan en x e y
  x e y representan la coordenada a la cual se quiere mover el elemento2*/
 Juego.intersecan = function(elemento1, elemento2, x, y) {
-  var izquierda1 = elemento1.x
-  var derecha1 = izquierda1 + elemento1.ancho
-  var techo1 = elemento1.y
-  var piso1 = techo1 + elemento1.alto
-  var izquierda2 = x
-  var derecha2 = izquierda2 + elemento2.ancho
-  var techo2 = y
-  var piso2 = y + elemento2.alto
+  let izquierda1 = elemento1.x
+  let derecha1 = izquierda1 + elemento1.ancho
+  let techo1 = elemento1.y
+  let piso1 = techo1 + elemento1.alto
+  let izquierda2 = x
+  let derecha2 = izquierda2 + elemento2.ancho
+  let techo2 = y
+  let piso2 = y + elemento2.alto
 
   return ((piso1 >= techo2) && (techo1 <= piso2) &&
     (derecha1 >= izquierda2) && (izquierda1 <= derecha2))
@@ -255,7 +259,7 @@ Juego.iniciarRecursos();
 // Activa las lecturas del teclado al presionar teclas
 // Documentacion: https://developer.mozilla.org/es/docs/Web/API/EventTarget/addEventListener
 document.addEventListener('keydown', function(e) {
-  var allowedKeys = {
+  let allowedKeys = {
     37: 'izq',
     38: 'arriba',
     39: 'der',

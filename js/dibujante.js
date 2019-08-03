@@ -3,7 +3,7 @@ para poder pintar en la pantalla. Es un objeto que abstrae las complejidades del
 canvas, brindandonos una interfaz para controlarlo facilmente en el juego.
 No tenes que preocuparte por este archivo, solo saber como usar sus funciones. */
 
-var Dibujante = {
+const Dibujante = {
   canvas: document.createElement('canvas'),
 
   borrarAreaDeJuego: function () {
@@ -20,7 +20,7 @@ var Dibujante = {
   con un ancho y alto dado. Es usada, por ejemplo, para pintar el mapa y los
   carteles de game over.*/
   dibujarImagen: function (ruta, x, y, ancho, alto) {
-    var imagen = Resources.get(ruta);
+    let imagen = Resources.get(ruta);
     this.canvas.getContext('2d').drawImage(imagen, x, y, ancho, alto);
   },
 
@@ -33,7 +33,7 @@ var Dibujante = {
   /* Dibuja un rectangulo del color pasado por paramentro en la posicion x, y
    con ancho y alto*/
   dibujarRectangulo: function (color, x, y, ancho, alto) {
-    var ctx = this.canvas.getContext('2d');
+    let ctx = this.canvas.getContext('2d');
     ctx.fillStyle = color;
     ctx.fillRect(x, y, ancho, alto);
   },
