@@ -1,6 +1,6 @@
 /* Un objeto que representa a los obstaculos. Recibe un sprite que tendra la
-imagen que lo representa y una potencia indicando cuando danio hace al chocar
-al jugador, ademas de los parametros comunes x, y, ancho y alto*/
+imagen que lo representa y una potencia indicando cuánto danio hace al chocar
+al jugador, además de los parametros comunes x, y, ancho y alto*/
 class Obstaculo {
   constructor (sprite, x, y, ancho, alto, potencia) {
     this.sprite = sprite;
@@ -9,13 +9,11 @@ class Obstaculo {
     this.ancho = ancho;
     this.alto = alto;
     this.potencia = potencia;
-
-  }
-
-  chocar(Jugador){
-    Jugador.perderVidas(1);
   }
   // Implementar el metodo chocar(jugador) para que al chocar con un obstaculo
   // el jugador pierda vidas
-  
+
+  chocar(potencia){
+    Jugador.perderVidas(potencia);
+  }
 }

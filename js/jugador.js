@@ -38,9 +38,9 @@ class JugadorModelo {
                   }
   }
 
-  perderVidas(cantidad){
-    this.vidas -= cantidad;
+  perderVidas(cantVidas){
+    this.vidas -= cantVidas;
   }
 }
 
-const Jugador = new JugadorModelo('imagenes/auto_rojo_abajo.png', 130, 160, 15, 30, 10, 5);
+const Jugador = new JugadorModelo('imagenes/auto_rojo_abajo.png', 130, 120, 15, 30, 10, 5);
