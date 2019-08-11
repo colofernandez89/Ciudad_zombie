@@ -14,7 +14,7 @@ const Juego = {
   altoCanvas: 577,
   jugador: Jugador,
   vidasInicial: Jugador.vidas,
-  // Indica si el jugador gano
+  // Indica si el jugador ganó
   ganador: false,
 
   obstaculosCarretera: [
@@ -74,11 +74,18 @@ const Juego = {
     new Obstaculo('', 279, 23, 664, 56, 2),
     new Obstaculo('', 887, 79, 56, 480, 2)
   ],
-  // Los enemigos se agregaran en este arreglo.
+  // Los enemigos se agregarán en este arreglo.
   enemigos: [
-
+    new ZombieCaminante('imagenes/zombie1.png', 50, 250, 10, 10, 2, { desdeX: 50, hastaX: 850, desdeY: 250, hastaY: 300 }),
+    new ZombieCaminante('imagenes/zombie2.png', 250, 370, 10, 10, 2, { desdeX: 200, hastaX: 450, desdeY: 400, hastaY: 450 }),
+    new ZombieCaminante('imagenes/zombie3.png', 50, 100, 10, 10, 2, { desdeX: 50, hastaX: 480, desdeY: 100, hastaY: 130 }),
+    new ZombieCaminante('imagenes/zombie4.png', 460, 285, 10, 10, 2, { desdeX: 460, hastaX: 805, desdeY: 285, hastaY: 315 }),
+    new ZombieCaminante('imagenes/zombie1.png', 480, 430, 10, 10, 2, { desdeX: 480, hastaX: 900, desdeY: 430, hastaY: 460 }),
+    new ZombieConductor('imagenes/tren_horizontal.png', 400, 322, 90, 30, 10, { desdeX: 50, hastaX: 850, desdeY: 322, hastaY: 322 }, "h"),
+    new ZombieConductor('imagenes/tren_vertical.png', 644, 30, 30, 90, 9, { desdeX: 644, hastaX: 644, desdeY: 30, hastaY: 470 }, "v"),
+    new ZombieConductor('imagenes/tren_vertical.png', 678, 30, 30, 90, 7, { desdeX: 678, hastaX: 678, desdeY: 30, hastaY: 470 }, "v")
+    
   ]
-
 }
 
 /* Se cargan los recursos de las imagenes, para tener un facil acceso
@@ -104,7 +111,8 @@ Juego.iniciarRecursos = function() {
     'imagenes/auto_rojo_derecha.png',
     'imagenes/auto_rojo_izquierda.png',
     'imagenes/auto_verde_abajo.png',
-    'imagenes/auto_verde_derecha.png'
+    'imagenes/auto_verde_derecha.png',
+    'imagenes/muralla-01.png'
   ]);
   Resources.onReady(this.comenzar.bind(Juego));
 };
@@ -164,7 +172,7 @@ Juego.capturarMovimiento = function(tecla) {
   if (this.chequearColisiones(movX + this.jugador.x, movY + this.jugador.y)) {
     /* Aca tiene que estar la logica para mover al jugador invocando alguno
     de sus metodos  */
-      this.jugador.mover(movX, movY, tecla);
+      Jugador.mover(movX, movY, tecla);
     /* COMPLETAR */
   }
 };
@@ -180,38 +188,12 @@ Juego.dibujar = function() {
   utilizando al dibujante y los metodos que nos brinda.
   "Dibujante dibuja al jugador" */
 
-    Dibujante.dibujarEntidad(Jugador);
+  Dibujante.dibujarEntidad(Jugador);
 
   // DIbuja la linea a la que el jugador debe llegar.
   
-    Dibujante.dibujarRectangulo("white", 759, 530, 9, 10);
-    Dibujante.dibujarRectangulo("black", 769, 530, 10, 10);
-    Dibujante.dibujarRectangulo("white", 779, 530, 10, 10);
-    Dibujante.dibujarRectangulo("black", 789, 530, 10, 10);
-    Dibujante.dibujarRectangulo("white", 799, 530, 10, 10);
-    Dibujante.dibujarRectangulo("black", 809, 530, 10, 10);
-    Dibujante.dibujarRectangulo("white", 819, 530, 10, 10);
-    Dibujante.dibujarRectangulo("black", 829, 530, 10, 10);
-    Dibujante.dibujarRectangulo("white", 839, 530, 10, 10);
-    Dibujante.dibujarRectangulo("black", 849, 530, 10, 10);
-    Dibujante.dibujarRectangulo("white", 859, 530, 10, 10);
-    Dibujante.dibujarRectangulo("black", 869, 530, 10, 10);
-    Dibujante.dibujarRectangulo("white", 879, 530, 8, 10);
-    Dibujante.dibujarRectangulo("black", 759, 540, 9, 10);
-    Dibujante.dibujarRectangulo("white", 769, 540, 10, 10);
-    Dibujante.dibujarRectangulo("black", 779, 540, 10, 10);
-    Dibujante.dibujarRectangulo("white", 789, 540, 10, 10);
-    Dibujante.dibujarRectangulo("black", 799, 540, 10, 10);
-    Dibujante.dibujarRectangulo("white", 809, 540, 10, 10);
-    Dibujante.dibujarRectangulo("black", 819, 540, 10, 10);
-    Dibujante.dibujarRectangulo("white", 829, 540, 10, 10);
-    Dibujante.dibujarRectangulo("black", 839, 540, 10, 10);
-    Dibujante.dibujarRectangulo("white", 849, 540, 10, 10);
-    Dibujante.dibujarRectangulo("black", 859, 540, 10, 10);
-    Dibujante.dibujarRectangulo("white", 869, 540, 10, 10);
-    Dibujante.dibujarRectangulo("black", 879, 540, 8, 10);
-
-
+  Dibujante.dibujarImagen('imagenes/muralla-01.png', 760, 515, 125, 50);
+   
   // Se recorren los obstaculos de la carretera pintandolos
   this.obstaculosCarretera.forEach(function(obstaculo) {
     Dibujante.dibujarEntidad(obstaculo);
@@ -220,6 +202,7 @@ Juego.dibujar = function() {
   // Se recorren los enemigos pintandolos
   this.enemigos.forEach(function(enemigo) {
     /* Completar */
+    Dibujante.dibujarEntidad(enemigo);
   });
 
   // El dibujante dibuja las vidas del jugador
@@ -238,6 +221,9 @@ un recorrido por los enemigos para dibujarlos en pantalla ahora habra que hacer
 una funcionalidad similar pero para que se muevan.*/
 Juego.moverEnemigos = function() {
   /* COMPLETAR */
+  this.enemigos.forEach(function(enemigo){
+    enemigo.mover(enemigo);
+  });
 };
 
 /* Recorre los enemigos para ver cual esta colisionando con el jugador
@@ -249,9 +235,11 @@ Juego.calcularAtaques = function() {
     if (this.intersecan(enemigo, this.jugador, this.jugador.x, this.jugador.y)) {
       /* Si el enemigo colisiona debe empezar su ataque
       COMPLETAR */
+      enemigo.comenzarAtaque(Jugador);
     } else {
       /* Sino, debe dejar de atacar
       COMPLETAR */
+      enemigo.dejarDeAtacar();
     }
   }, this);
 };

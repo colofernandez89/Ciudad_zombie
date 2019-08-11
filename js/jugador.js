@@ -36,11 +36,11 @@ class JugadorModelo {
           this.alto=30;
         break;
                   }
-  }
+  };
 
   perderVidas(cantVidas){
     this.vidas -= cantVidas;
-  }
+  };
 }
 
-const Jugador = new JugadorModelo('imagenes/auto_rojo_abajo.png', 130, 120, 15, 30, 10, 5);
+const Jugador = new JugadorModelo('imagenes/auto_rojo_abajo.png', 120, 50, 15, 30, 15, 5);
