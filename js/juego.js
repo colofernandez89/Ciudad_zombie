@@ -283,15 +283,23 @@ Juego.dibujarFondo = function() {
   if (this.terminoJuego()) {
     Dibujante.dibujarImagen('imagenes/mensaje_gameover.png', 0, 5, this.anchoCanvas, this.altoCanvas);
     document.getElementById('reiniciar').style.visibility = 'visible';
+    Juego.obstaculosCarretera = []
+    Juego.enemigos = []
+    Jugador = [];
   }
 
   // Si se gano el juego hay que mostrar el mensaje de ganoJuego de fondo
   else if (this.ganoJuego()) {
     Dibujante.dibujarImagen('imagenes/Splash.png', 190, 113, 500, 203);
+    document.getElementById('ganaste').style.display = 'block';
     document.getElementById('reiniciar').style.visibility = 'visible';
+    Juego.obstaculosCarretera = []
+    Juego.enemigos = []
+    Jugador = [];
   } else {
     Dibujante.dibujarImagen('imagenes/mapa.png', 0, 5, this.anchoCanvas, this.altoCanvas);
   }
+
 };
 
 Juego.terminoJuego = function() {
